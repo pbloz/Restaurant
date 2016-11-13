@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -37,6 +38,25 @@ public class UserController {
     public String registration(Model model) {
         model.addAttribute("userForm", new User());
         return "registration";
+    }
+    @RequestMapping(value = "/users/{id}", method = RequestMethod.GET)
+    public String updateUser(@PathVariable Long id, Model model) {
+        User user = userService.findById(id);
+        model.addAttribute("userForm", user);
+        return "editUser";
+    }
+    @RequestMapping(value = "/users/{id}", method = RequestMethod.POST)
+    public String updateUser(@ModelAttribute("userForm") User userForm, BindingResult bindingResult, Model model) {
+       // userValidator.validate(userForm, bindingResult);
+
+        if (bindingResult.hasErrors()) {
+            return "editUser";
+        }
+
+        userService.save(userForm);
+//        securityService.autologin(userForm.getUsername(), userForm.getPasswordConfirm());
+
+        return "redirect:/users";
     }
 
     @RequestMapping(value = "/registration", method = RequestMethod.POST)

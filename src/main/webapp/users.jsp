@@ -35,6 +35,7 @@
             <tr>
                 <th scope="row">id</th>
                 <td>Username</td>
+                <td>Email</td>
             </tr>
         </thead>
         <tbody>
@@ -42,6 +43,7 @@
                 <tr>
                     <th scope="row"><c:out value="${user.id}" /></th>
                     <td><c:out value="${user.username}" /></td>
+                    <td><c:out value="${user.email}" /></td>
                 </tr>
             </c:forEach>
         </tbody>
