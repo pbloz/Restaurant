@@ -6,6 +6,7 @@ import com.karwowski.auth.repository.PizzaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.HashSet;
+import java.util.List;
 
 /**
  * Created by PK on 2016-11-13.
@@ -18,5 +19,8 @@ public class PizzaService {
     }
     public Pizza findByName(String name){
         return pizzaRepository.findByName(name);
+    }
+    public List<Pizza> allPizzas(){
+        return pizzaRepository.findAll();
     }
 }
