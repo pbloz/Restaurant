@@ -9,10 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -56,6 +53,21 @@ public class PizzaController {
         pizzaService.save(pizzaForm);
         return "redirect:/pizzas";
     }
+//    @RequestMapping(value = "/pizzas", method = RequestMethod.POST)
+//    public String removeAd(@RequestParam("pizza") Long id) {
+//        Pizza pizza = pizzaService.findById(id);
+//
+//        pizzaService.removePizza(id);
+//        return "redirect:/pizzas";
+//    }
+    @RequestMapping(value = "pizzas/remove/{id}", method = RequestMethod.POST)
+    public String delete(@PathVariable("id") Long itemId, Model model) {
+        System.out.println("@@@@DIDIDIDIDIDI"+itemId);
+        pizzaService.removePizza(itemId);
+
+        return "redirect:/pizzas";
+    }
+
     @RequestMapping(value = "/pizzas", method = RequestMethod.GET)
     public String allPizzas(Model model) {
         List<Pizza> allPizzas = pizzaService.allPizzas();

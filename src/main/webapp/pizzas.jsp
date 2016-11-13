@@ -36,6 +36,7 @@
             <th scope="row">id</th>
             <td>Name</td>
             <td>Price</td>
+            <td>Action</td>
         </tr>
         </thead>
         <tbody>
@@ -44,6 +45,13 @@
                 <th scope="row"><c:out value="${pizza.id}" /></th>
                 <td><c:out value="${pizza.name}" /></td>
                 <td><c:out value="${pizza.price}" /></td>
+                <td>
+                    <form id="${pizza.id}"  method="POST">
+                        <input id="id" name="id" type="hidden" value="${pizza.id}"/>
+                        <input class="btn btn-mini btn-danger " type="submit" value="Delete"/>
+                        <a class="btn btn-mini " href="pizzas/remove/1">Remove</a>
+                    </form>
+                </td>
             </tr>
         </c:forEach>
         </tbody>

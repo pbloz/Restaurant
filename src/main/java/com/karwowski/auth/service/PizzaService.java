@@ -23,6 +23,9 @@ public class PizzaService {
 
     public Pizza findById(Long id) {
         return pizzaRepository.findById(id);
-
+    }
+    public void removePizza(Long id){
+        Pizza pizza= findById(id);
+        pizzaRepository.delete(id);
     }
 }
