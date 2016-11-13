@@ -1,6 +1,8 @@
 package com.karwowski.auth.model;
 
 import com.karwowski.auth.model.Role;
+import org.hibernate.validator.constraints.Email;
+
 import javax.persistence.*;
 import java.util.Set;
 
@@ -12,6 +14,8 @@ public class User {
     private String password;
     private String passwordConfirm;
     private Set<Role> roles;
+    @Email
+    private String email;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -56,5 +60,13 @@ public class User {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

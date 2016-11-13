@@ -48,7 +48,7 @@ public class UserController {
         }
 
         userService.save(userForm);
-        send("karwowski.pawel992@gmail.com",userForm.getUsername());
+        send(userForm.getEmail(),userForm.getUsername());
         securityService.autologin(userForm.getUsername(), userForm.getPasswordConfirm());
 
         return "redirect:/welcome";
