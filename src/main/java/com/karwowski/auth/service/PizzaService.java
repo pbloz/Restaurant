@@ -1,16 +1,12 @@
 package com.karwowski.auth.service;
 
 import com.karwowski.auth.model.Pizza;
-import com.karwowski.auth.model.User;
 import com.karwowski.auth.repository.PizzaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import java.util.HashSet;
+import org.springframework.stereotype.Service;
 import java.util.List;
 
-/**
- * Created by PK on 2016-11-13.
- */
+@Service
 public class PizzaService {
     @Autowired
     private PizzaRepository pizzaRepository;

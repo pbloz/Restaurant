@@ -33,12 +33,6 @@ public class UserController {
 
     @Autowired
     private UserValidator userValidator;
-
-    @RequestMapping(value = "/registration", method = RequestMethod.GET)
-    public String registration(Model model) {
-        model.addAttribute("userForm", new User());
-        return "registration";
-    }
     @RequestMapping(value = "/users/{id}", method = RequestMethod.GET)
     public String updateUser(@PathVariable Long id, Model model) {
         User user = userService.findById(id);
@@ -58,7 +52,11 @@ public class UserController {
 
         return "redirect:/users";
     }
-
+    @RequestMapping(value = "/registration", method = RequestMethod.GET)
+    public String registration(Model model) {
+        model.addAttribute("userForm", new User());
+        return "registration";
+    }
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
     public String registration(@ModelAttribute("userForm") User userForm, BindingResult bindingResult, Model model) {
         userValidator.validate(userForm, bindingResult);
