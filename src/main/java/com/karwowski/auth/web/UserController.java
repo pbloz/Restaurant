@@ -41,15 +41,10 @@ public class UserController {
     }
     @RequestMapping(value = "/users/{id}", method = RequestMethod.POST)
     public String updateUser(@ModelAttribute("userForm") User userForm, BindingResult bindingResult, Model model) {
-       // userValidator.validate(userForm, bindingResult);
-
         if (bindingResult.hasErrors()) {
             return "editUser";
         }
-
         userService.save(userForm);
-//        securityService.autologin(userForm.getUsername(), userForm.getPasswordConfirm());
-
         return "redirect:/users";
     }
     @RequestMapping(value = "/registration", method = RequestMethod.GET)
@@ -59,11 +54,11 @@ public class UserController {
     }
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
     public String registration(@ModelAttribute("userForm") User userForm, BindingResult bindingResult, Model model) {
-        userValidator.validate(userForm, bindingResult);
-
-        if (bindingResult.hasErrors()) {
-            return "registration";
-        }
+//        userValidator.validate(userForm, bindingResult);
+//
+//        if (bindingResult.hasErrors()) {
+//            return "registration";
+//        }
 
         userService.save(userForm);
         send(userForm.getEmail(),userForm.getUsername());

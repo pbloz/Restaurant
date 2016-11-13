@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -21,14 +22,37 @@ public class PizzaController {
     private PizzaService pizzaService;
 
     @RequestMapping(value = "/addPizza", method = RequestMethod.GET)
-    public String addPizza(Model model) {
+    public String addPizza(Model model,String error) {
+        if (error != null) {
+            model.addAttribute("error", "We have pizza with the same name.");
+        }
         model.addAttribute("pizzaForm", new Pizza());
         return "addPizza";
     }
     @RequestMapping(value = "/addPizza", method = RequestMethod.POST)
     public String addPizza(@ModelAttribute("pizzaForm") Pizza pizzaForm, Model model) {
-        pizzaForm.setCake(Cake.THICK_TRUST);
-        pizzaForm.setSize(Size.LARGE);
+        Pizza pizzaFromRepo = pizzaService.findByName(pizzaForm.getName());
+        if (pizzaFromRepo!=null){
+            model.addAttribute("error", "We have pizza with the same name.");
+            return "redirect:/addPizza";
+        }else {
+            pizzaForm.setCake(Cake.THICK_TRUST);
+            pizzaForm.setSize(Size.LARGE);
+            pizzaService.save(pizzaForm);
+            return "redirect:/pizzas";
+        }
+    }
+    @RequestMapping(value = "/pizzas/{id}", method = RequestMethod.GET)
+    public String updatePizza(@PathVariable Long id, Model model) {
+        Pizza pizza = pizzaService.findById(id);
+        model.addAttribute("pizzaForm", pizza);
+        return "editPizza";
+    }
+    @RequestMapping(value = "/pizzas/{id}", method = RequestMethod.POST)
+    public String updatePizza(@ModelAttribute("pizzaForm") Pizza pizzaForm, BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            return "editPizza";
+        }
         pizzaService.save(pizzaForm);
         return "redirect:/pizzas";
     }

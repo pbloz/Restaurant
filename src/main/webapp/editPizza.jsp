@@ -7,7 +7,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Add Pizza</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -30,23 +29,23 @@
 <body>
 
 <div class="container">
-
+    <h1>Edit user</h1>
     <form:form method="POST" modelAttribute="pizzaForm" class="form-signin">
-        <h2 class="form-signin-heading">Create your new pizza</h2>
-
-        <spring:bind path="pizzaForm">
-            <div class="form-group ${error != null ? 'has-error' : ''}"">
+        <h2 class="form-signin-heading">Edit pizza</h2>
+        <spring:bind path="name">
+            <div class="form-group ">
                 <form:input type="text" path="name" class="form-control" placeholder="name"
                             autofocus="true"></form:input>
-                <span>${error}</span>
             </div>
         </spring:bind>
-        <spring:bind path="pizzaForm">
-            <div class="form-group">
-                <form:input type="number" path="price" class="form-control" placeholder="price" autocomplete = "on" value='0'
+        <spring:bind path="price">
+            <div class="form-group ">
+                <form:input type="number" path="price" class="form-control" placeholder="price"
                             autofocus="true"></form:input>
+
             </div>
         </spring:bind>
+
 
 
         <button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
